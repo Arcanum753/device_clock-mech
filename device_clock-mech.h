@@ -76,7 +76,6 @@ typedef struct {
 
 class CLASS_DEVICE_CLOCKMECH {
 public:
-    CLASS_DEVICE_CLOCKMECH(bool _in);
     void setFs(fs::LittleFSFS* fs);
     void begin();
     void begin(ModContext& ctx);
@@ -179,7 +178,6 @@ private:
     static void MechSetArrowMinFail();
 
 protected:
-    bool dumb;
     fs::LittleFSFS*     _fs;
     strClockMechConfig _config;
     uint16_t            _mechControlSteps;

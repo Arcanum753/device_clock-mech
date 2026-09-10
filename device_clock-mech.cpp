@@ -34,8 +34,7 @@ static uint32_t _lastStepDownUs = 0;
 
 static const char patDevError[] PROGMEM = LED_PATTERN_DEV_ERROR;
 
-CLASS_DEVICE_CLOCKMECH device_clock_mech(false);
-CLASS_DEVICE_CLOCKMECH::CLASS_DEVICE_CLOCKMECH(bool _in) { dumb = _in; }
+CLASS_DEVICE_CLOCKMECH device_clock_mech;
 void CLASS_DEVICE_CLOCKMECH::setFs(fs::LittleFSFS* fs)  {   _fs = fs;   }
 
 // ============================================================
