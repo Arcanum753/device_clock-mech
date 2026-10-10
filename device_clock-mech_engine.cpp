@@ -12,9 +12,7 @@
 #include <avr/pgmspace.h>
 #endif
 
-#if defined(MODULE_DS3231)
-#include "module_ds3231/module_ds3231.h"
-#endif
+#include "core_sys/core_sys.h"
 
 #include "common/TimeLib.h"
 
@@ -43,14 +41,8 @@ void CLASS_DEVICE_CLOCKMECH::ledMacrosClockMechError() {
 // Время из источника
 // ============================================================
 time_t CLASS_DEVICE_CLOCKMECH::getCurrentTime() {
-#if defined(MODULE_DS3231)
-    if (_config.timeSource == "ds3231") {
-        time_t t = module_ds3231.getTime();
-        if (t > 0) { return t; }
-        DEBUGCLOCKMECH("DS3231 error, fallback to NTP\r\n");
-    }
-#endif
-    return now();
+    // Единый источник времени — подсистема виртуального времени core_sys.
+    return core_sys.timeNow();
 }
 
 // ============================================================
@@ -612,7 +604,6 @@ void CLASS_DEVICE_CLOCKMECH::cmdStatus() {
     DBG_MOD("[D_CLOCKMECH] ", "===== ClockMech Status =====\r\n");
     DBG_MOD("[D_CLOCKMECH] ", "_Mech_Status:          %d\r\n", device_clock_mech._Mech_Status);
     DBG_MOD("[D_CLOCKMECH] ", "_config.enable_status: %d\r\n", device_clock_mech._config.enable_status);
-    DBG_MOD("[D_CLOCKMECH] ", "_config.timeSource:    %s\r\n", device_clock_mech._config.timeSource.c_str());
     DBG_MOD("[D_CLOCKMECH] ", "_config.stepsPerRevolution: %d\r\n", device_clock_mech._config.stepsPerRevolution);
     DBG_MOD("[D_CLOCKMECH] ", "_config.pollInterval: %d\r\n", device_clock_mech._config.pollInterval);
     DBG_MOD("[D_CLOCKMECH] ", "_config.errorLimitSteps: %d\r\n", device_clock_mech._config.errorLimitSteps);
@@ -703,7 +694,6 @@ void CLASS_DEVICE_CLOCKMECH::cmdStatusWeb(AsyncWebServerRequest *request) {
     JsonDocument doc;
     doc["_Mech_Status"]            = device_clock_mech._Mech_Status;
     doc["enable_status"]           = device_clock_mech._config.enable_status;
-    doc["timeSource"]              = device_clock_mech._config.timeSource;
     doc["stepsPerRevolution"]      = device_clock_mech._config.stepsPerRevolution;
     doc["pollInterval"]            = device_clock_mech._config.pollInterval;
     doc["errorLimitSteps"]         = device_clock_mech._config.errorLimitSteps;

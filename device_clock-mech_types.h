@@ -65,7 +65,6 @@ typedef void (*DPDR)(void);
 
 typedef struct {
     uint8_t  enable_status;
-    String   timeSource;
     uint16_t stepsPerRevolution;
     uint16_t pollInterval;
     uint16_t errorLimitSteps;

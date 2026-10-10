@@ -3,6 +3,7 @@
 <head>
     <title>Clock mechanism</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,15 +19,6 @@
                     <select id="enable_status">
                         <option value="0">Debug</option>
                         <option value="1">Work</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Time source</td>
-                <td>
-                    <select id="timeSource">
-                        <option value="ds3231">DS3231</option>
-                        <option value="ntp">NTP</option>
                     </select>
                 </td>
             </tr>
@@ -111,7 +103,6 @@
                 const resp = await fetch('/clock-mech/info');
                 const data = await resp.json();
                 document.getElementById('enable_status').value = data.enable_status;
-                document.getElementById('timeSource').value = data.timeSource;
                 document.getElementById('stepsPerRevolution').value = data.stepsPerRevolution;
                 document.getElementById('pollInterval').value = data.pollInterval;
                 document.getElementById('errorLimitSteps').value = data.errorLimitSteps;
@@ -137,7 +128,6 @@
 
         async function saveConfig() {
             const enabled = document.getElementById('enable_status').value;
-            const timeSource = document.getElementById('timeSource').value;
             const steps = document.getElementById('stepsPerRevolution').value;
             const poll = document.getElementById('pollInterval').value;
             const err = document.getElementById('errorLimitSteps').value;
@@ -146,7 +136,7 @@
             statusEl.innerHTML = 'Saving...';
             try {
                 const params = new URLSearchParams({
-                    enable_status: enabled, timeSource,
+                    enable_status: enabled,
                     stepsPerRevolution: steps, pollInterval: poll,
                     errorLimitSteps: err, sensorLedEnabled: sensLed
                 });

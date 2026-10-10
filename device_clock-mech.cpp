@@ -99,7 +99,6 @@ void CLASS_DEVICE_CLOCKMECH::handleInfo(AsyncWebServerRequest *request) {
     DEBUGCLOCKMECH("%s\r\n", __FUNCTION__);
     JsonDocument doc;
     doc["enable_status"]        = _config.enable_status;
-    doc["timeSource"]           = _config.timeSource;
     doc["stepsPerRevolution"]   = _config.stepsPerRevolution;
     doc["pollInterval"]         = _config.pollInterval;
     doc["errorLimitSteps"]      = _config.errorLimitSteps;
@@ -129,7 +128,6 @@ void CLASS_DEVICE_CLOCKMECH::handleSave(AsyncWebServerRequest *request) {
             String val  = request->arg(i);
 
             if (name == "enable_status")            { _config.enable_status = (uint8_t)val.toInt(); }
-            else if (name == "timeSource")          { _config.timeSource = val; }
             else if (name == "stepsPerRevolution")  { _config.stepsPerRevolution = (uint16_t)val.toInt(); }
             else if (name == "pollInterval")        { _config.pollInterval = (uint16_t)val.toInt(); if (_config.pollInterval < 1) _config.pollInterval = 1; }
             else if (name == "errorLimitSteps")     { _config.errorLimitSteps = (uint16_t)val.toInt(); }
@@ -159,7 +157,6 @@ void CLASS_DEVICE_CLOCKMECH::handleCount(AsyncWebServerRequest *request) {
 // ============================================================
 void CLASS_DEVICE_CLOCKMECH::defaultConfig() {
     _config.enable_status      = MODE_DEBUG;
-    _config.timeSource         = "ds3231";
     _config.stepsPerRevolution = 0;
     _config.pollInterval       = 5;
     _config.errorLimitSteps    = 500;
@@ -172,13 +169,11 @@ bool CLASS_DEVICE_CLOCKMECH::loadConfig() {
     if (core_json.jsonFileLoadDoc(CONFIG_FILE_CLOCKMECH, doc) == false) { return false; }
 
     _config.enable_status       = doc["enable_status"].as<uint8_t>();
-    _config.timeSource          = doc["timeSource"].as<String>();
     _config.stepsPerRevolution  = doc["stepsPerRevolution"].as<uint16_t>();
     _config.pollInterval        = doc["pollInterval"].as<uint16_t>();
     _config.errorLimitSteps     = doc["errorLimitSteps"].as<uint16_t>();
     _config.sensorLedEnabled    = doc["sensorLedEnabled"].as<bool>();
 
-    if (_config.timeSource != "ds3231" && _config.timeSource != "ntp") { _config.timeSource = "ds3231"; }
     if (_config.pollInterval < 1)   { _config.pollInterval = 5; }
     if (_config.stepsPerRevolution < 1) { _config.stepsPerRevolution = 400; }
 
@@ -190,7 +185,6 @@ bool CLASS_DEVICE_CLOCKMECH::saveConfig() {
     JsonDocument doc;
     core_json.jsonFileLoadDoc(CONFIG_FILE_CLOCKMECH, doc);
     doc["enable_status"]        = _config.enable_status;
-    doc["timeSource"]           = _config.timeSource;
     doc["stepsPerRevolution"]   = _config.stepsPerRevolution;
     doc["pollInterval"]         = _config.pollInterval;
     doc["errorLimitSteps"]      = _config.errorLimitSteps;

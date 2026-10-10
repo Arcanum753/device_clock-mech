@@ -17,7 +17,8 @@
 - **Env:** `esp32_clock-mech` (extends `env:esp32`); `src_filter`: `+<module_udp/> +<module_otaclient/> +<device_clock-mech/> +<module_ds3231/>`; флаги: `MODULE_UDP=1`, `MODULE_OTACLIENT=1`, `MODULE_DS3231=1`, `DS3231_SQW_PIN=13`, `DEVICE_CLOCKMECH=1`, `DEBUG_*`
 - **Только для платформы:** ESP32
 - **Зависит от модулей:** `module_udp`, `module_otaclient`, `module_ds3231`
-- **Зависит от ядра:** `core_web`, `core_sys`, `core_json`, `core_ntp`, `core_led`
+- **Зависит от ядра:** `core_web`, `core_sys`, `core_json`, `core_led`
+  (время — только через `core_sys.timeNow()`)
 
 ## Назначение
 
@@ -30,7 +31,7 @@
 
 - FR-CLOCKMECH-1: Два режима `enable_status`: DEBUG (ручное управление) и WORK (автономная работа).
 - FR-CLOCKMECH-2: Калибровка `stepsPerRevolution` и лимит ошибки `errorLimitSteps`.
-- FR-CLOCKMECH-3: Источник времени `timeSource`: `ds3231` (I2C RTC + SQW пин 13) или `ntp` (`now()`).
+- FR-CLOCKMECH-3: Источник времени — подсистема виртуального времени `core_sys` (`core_sys.timeNow()`). Поле `timeSource` удалено; активный источник выбирает `core_sys` из зарегистрированных (NTP/DS3231 и т.п.).
 - FR-CLOCKMECH-4: Установка стрелок в целевое время (`cmdSetArrows`, `/clock-mech/set-xx00`, `/clock-mech/set-12xx`).
 - FR-CLOCKMECH-5: Управление драйвером: `cmdStep`, `cmdDir`, `cmdEn`, `cmdSled` (подсветка датчиков), `cmdSens` (чтение датчиков).
 - FR-CLOCKMECH-6: Периодический опрос `pollInterval`; при превышении `errorLimitSteps` — индикация ошибки (`ledMacrosClockMechError`).
@@ -55,7 +56,7 @@
 
 ## Конфигурация
 
-`/config_clock-mech.json` — `enable_status`, `timeSource`, `stepsPerRevolution`,
+`/config_clock-mech.json` — `enable_status`, `stepsPerRevolution`,
 `pollInterval`, `errorLimitSteps`, `sensorLedEnabled`.
 
 ## Терминальные команды
