@@ -1,5 +1,5 @@
 // Auto-generated version file for module: device_clock-mech
-// Generated: 2026-09-19 12:10
+// Generated: 2026-10-11 01:15
 // Environment: esp32_electronica7_rgb_macros
 
 #ifndef DEVICE_CLOCK_MECH_VERSION_H
@@ -10,36 +10,36 @@
 // ============================================================
 
 // Числовая версия (для сравнений)
-#define DEVICE_CLOCK_MECH_VERSION 3
+#define DEVICE_CLOCK_MECH_VERSION 4
 
 // Строковая версия
-#define DEVICE_CLOCK_MECH_VERSION_STR "3"
+#define DEVICE_CLOCK_MECH_VERSION_STR "4"
 
 // Хэш последнего обработанного коммита кода (без учёта *_version.h)
-#define DEVICE_CLOCK_MECH_COMMIT_HASH "fcd35341bf8cbf2110a29eb98a317ce526debb41"
+#define DEVICE_CLOCK_MECH_COMMIT_HASH "db1a200c50f9f85abc1b3fa9d20dcf5af7be0588"
 
 // ============================================================
 // ДАТА ПОСЛЕДНЕГО ИЗМЕНЕНИЯ
 // ============================================================
 
 // Дата в формате yyyy.mm.dd hh.mm (как строка)
-#define DEVICE_CLOCK_MECH_COMMIT_DATE_STR "2026.09.19 12:00"
+#define DEVICE_CLOCK_MECH_COMMIT_DATE_STR "2026.10.10 20:18"
 
 // Компоненты даты (для числовых операций)
 #define DEVICE_CLOCK_MECH_COMMIT_YEAR 2026
-#define DEVICE_CLOCK_MECH_COMMIT_MONTH 9
-#define DEVICE_CLOCK_MECH_COMMIT_DAY 19
-#define DEVICE_CLOCK_MECH_COMMIT_HOUR 12
-#define DEVICE_CLOCK_MECH_COMMIT_MINUTE 0
+#define DEVICE_CLOCK_MECH_COMMIT_MONTH 10
+#define DEVICE_CLOCK_MECH_COMMIT_DAY 10
+#define DEVICE_CLOCK_MECH_COMMIT_HOUR 20
+#define DEVICE_CLOCK_MECH_COMMIT_MINUTE 18
 
 // Полная дата в формате YYYY-MM-DD HH:MM (для отладки)
-#define DEVICE_CLOCK_MECH_COMMIT_DATE "2026-09-19 12:00"
+#define DEVICE_CLOCK_MECH_COMMIT_DATE "2026-10-10 20:18"
 
 // ============================================================
 // ИНФОРМАЦИЯ О ГЕНЕРАЦИИ
 // ============================================================
 
-#define DEVICE_CLOCK_MECH_GENERATED_TIME "2026-09-19 12:10"
-#define DEVICE_CLOCK_MECH_GENERATED_TIMESTAMP "20260919_121011"
+#define DEVICE_CLOCK_MECH_GENERATED_TIME "2026-10-11 01:15"
+#define DEVICE_CLOCK_MECH_GENERATED_TIMESTAMP "20261011_011551"
 
 #endif // DEVICE_CLOCK_MECH_VERSION_H
